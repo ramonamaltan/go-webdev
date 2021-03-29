@@ -21,6 +21,8 @@ func main() {
 	mux.GET("/apply", apply)
 	mux.POST("/apply", applyProcess)
 	mux.GET("/user/:name", user)
+	mux.GET("/blog/:category/:article", blogRead)
+	mux.POST("/blog/:category/:article", blogWrite)
 
 	http.ListenAndServe(":8080", mux)
 }
@@ -32,6 +34,16 @@ func index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 func user(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	fmt.Fprintf(w, "Hi, %s!\n", ps.ByName("name"))
+}
+
+func blogRead(w http.ResponseWriter, req *http.Request, ps httprouter.Params) {
+	fmt.Fprintf(w, "READ CATEGORY, %s!\n", ps.ByName("category"))
+	fmt.Fprintf(w, "READ ARTICLE, %s!\n", ps.ByName("article"))
+}
+
+func blogWrite(w http.ResponseWriter, req *http.Request, ps httprouter.Params) {
+	fmt.Fprintf(w, "WRITE CATEGORY, %s!\n", ps.ByName("category"))
+	fmt.Fprintf(w, "WRITE ARTICLE, %s!\n", ps.ByName("article"))
 }
 
 func apply(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
