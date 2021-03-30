@@ -1,0 +1,7 @@
+# application: temp-123 Project ID
+runtime: go116
+
+handlers:
+- url: /.*
+  script: auto
+  secure: always
